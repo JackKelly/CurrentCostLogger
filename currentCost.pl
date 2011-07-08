@@ -11,8 +11,12 @@
 # And then type:
 #    install Device::SerialPort
 
+# To import into Open Office Calc:
+# On the import, select “separated by tabs” and “detect special numbers”
+
 use strict;
 use Device::SerialPort qw( :PARAM :STAT 0.07 );
+use POSIX qw(strftime);
 
 my $PORT    = "/dev/ttyUSB0";
 my $LOGFILE = "data.txt";
@@ -28,7 +32,7 @@ $ob->baudrate(57600);
 $ob->write_settings;
 
 open(SERIAL, "+>$PORT");
-print "Opened serial port.\nYEAR,Mm,Dd,HH,MM,SS,Watts\n";
+print "Opened serial port.\nDD/MM/YEAR HH:MM:SS\tWatts\n";
 
 while (my $line = <SERIAL>) {
     if ($line =~ m!<time>(\d+):(\d+):(\d+)</time>.*<ch1><watts>0*(\d+)</watts></ch1>!) {
@@ -41,11 +45,9 @@ while (my $line = <SERIAL>) {
         my $watts = $4;
 
 	# Get today's date from the Linux computer
-	($day, $month, $year) = (localtime)[3,4,5];
-	$month += 1;
-	$year  += 1900;
+	my $date = strftime('%d/%m/%Y', localtime());
 
-	my $output = "$year,$month,$day,$hours,$mins,$secs,$watts\n";
+	my $output = "$date $hours:$mins:$secs\t$watts\n";
         print $output;
 
 	# Log the output to file

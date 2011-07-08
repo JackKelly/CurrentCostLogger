@@ -1,11 +1,14 @@
-Reads data from a Current Cost device via USB port and logs the data to a file
+Reads data from a Current Cost EnviR display via USB port to a Linux machine and logs the data to a file.
 
 Based on Paul Mutton's excellent Perl script and tutorial: http://www.jibble.org/currentcost/
 with modifications from Jamie Bennett: http://www.linuxuk.org/2008/12/currentcost-and-ubuntu/
 
-DEPENDENCIES
+**To import into Open Office Calc:**
+    On the import, select “separated by tabs” and “detect special numbers”
+
+**DEPENDENCIES**
 This module requires the Device::SerialPort Perl module.  Install this using Perl's package manager:
 At the Linux command line, type:
-   sudo perl -MCPAN -e shell
+    sudo perl -MCPAN -e shell
 And then type:
-   install Device::SerialPort
+    install Device::SerialPort
