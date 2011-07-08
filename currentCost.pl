@@ -32,22 +32,25 @@ $ob->baudrate(57600);
 $ob->write_settings;
 
 open(SERIAL, "+>$PORT");
-print "Opened serial port.\nDD/MM/YEAR HH:MM:SS\tWatts\n";
+print "Opened serial port.\n";
+print "UNIX  TIME\tWATTS\tDD/MM/YEAR HH:MM:SS\n";
 
 while (my $line = <SERIAL>) {
-    if ($line =~ m!<time>(\d+):(\d+):(\d+)</time>.*<ch1><watts>0*(\d+)</watts></ch1>!) {
+    if ($line =~ m!<time>(\d+):(\d+):(\d+)</time>.*<ch1><watts>(\d+)</watts></ch1>!) {
 	# For Perl regex help, see http://www.cs.tut.fi/~jkorpela/perl/regexp.html
 	# For Current Cost XML details, see http://www.currentcost.com/cc128/xml.htm
 
+	# Data from Current Cost EnviR device:
         my $hours = $1;
         my $mins  = $2;
         my $secs  = $3;
         my $watts = $4;
 
-	# Get today's date from the Linux computer
-	my $date = strftime('%d/%m/%Y', localtime());
+	# Get today's date from local Linux host computer
+	my $datetime = strftime('%d/%m/%Y %H:%M:%S', localtime());
+	my $unixtime = strftime('%s', localtime());
 
-	my $output = "$date $hours:$mins:$secs\t$watts\n";
+	my $output = "$unixtime\t$watts\t$datetime\n";
         print $output;
 
 	# Log the output to file

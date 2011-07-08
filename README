@@ -3,12 +3,30 @@ Reads data from a Current Cost EnviR display via USB port to a Linux machine and
 Based on Paul Mutton's excellent Perl script and tutorial: http://www.jibble.org/currentcost/
 with modifications from Jamie Bennett: http://www.linuxuk.org/2008/12/currentcost-and-ubuntu/
 
-**To import into Open Office Calc:**
-    On the import, select “separated by tabs” and “detect special numbers”
 
-**DEPENDENCIES**
+----------------
+  Dependencies 
+================
 This module requires the Device::SerialPort Perl module.  Install this using Perl's package manager:
 At the Linux command line, type:
     sudo perl -MCPAN -e shell
 And then type:
     install Device::SerialPort
+
+
+---------------
+  Data format
+===============
+The data format of the data.txt file is:
+UNIX  TIME	WATTS	DD/MM/YEAR HH:MM:SS
+
+The time and date is taken from the local machine, not the Current
+Cost (although the time is extracted from the Current Cost's output so
+it would be easy to use the time from the Current Cost rather than
+from the local Linux machine.)
+
+
+-----------------------------------
+  To import into Open Office Calc
+===================================
+On the import, select “separated by tabs” and “detect special numbers”
