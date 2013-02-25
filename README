@@ -30,3 +30,11 @@ from the local Linux machine.)
   To import into Open Office Calc
 ===================================
 On the import, select “separated by tabs” and “detect special numbers”
+
+
+No longer maintained and alternative projects
+=============================================
+Please note that I no longer use or maintain this code.  Please see these alternative projects:
+* https://github.com/JackKelly/currentCostCosmTX
+* https://github.com/JackKelly/iam_logger
+* http://jack-kelly.com/summary_of_my_energy_monitoring_code
